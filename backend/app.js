@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
 const Post = require("./models/post");
 
 const app = express();
@@ -32,7 +31,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-
 app.post("/api/posts", (req, res, next) => {
   const post = new Post({
     title: req.body.title,
