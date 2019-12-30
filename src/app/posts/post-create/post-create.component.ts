@@ -14,6 +14,7 @@ import { AuthService } from "../../auth/auth.service";
   styleUrls: ["./post-create.component.css"]
 })
 export class PostCreateComponent implements OnInit, OnDestroy {
+  checked: string = "0";
   enteredTitle = "";
   enteredContent = "";
   post: Post;
@@ -28,7 +29,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     public postsService: PostsService,
     public route: ActivatedRoute,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.authStatusSub = this.authService
@@ -58,6 +59,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             title: postData.title,
             content: postData.content,
             imagePath: postData.imagePath,
+            status: postData.status,
             creator: postData.creator
           };
           this.form.setValue({
@@ -93,14 +95,16 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       this.postsService.addPost(
         this.form.value.title,
         this.form.value.content,
-        this.form.value.image
+        this.checked,
+        this.form.value.image,
       );
     } else {
       this.postsService.updatePost(
         this.postId,
         this.form.value.title,
         this.form.value.content,
-        this.form.value.image
+        this.checked,
+        this.form.value.image,
       );
     }
     this.form.reset();
@@ -108,5 +112,9 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
+  }
+  check() {
+    if (this.checked == "0") this.checked = "1"
+    else this.checked = "0"
   }
 }

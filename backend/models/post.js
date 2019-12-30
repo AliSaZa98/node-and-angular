@@ -4,6 +4,8 @@ const postSchema = mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   imagePath: { type: String, required: true },
+  postDate: { type: Date, default: Date.now },
+  status: { type: String, require: true },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 

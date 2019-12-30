@@ -14,7 +14,7 @@ export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
@@ -30,6 +30,7 @@ export class PostsService {
                 title: post.title,
                 content: post.content,
                 id: post._id,
+                status: post.status,
                 imagePath: post.imagePath,
                 creator: post.creator
               };
@@ -57,15 +58,18 @@ export class PostsService {
       title: string;
       content: string;
       imagePath: string;
+      status: boolean;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addPost(title: string, content: string, image: File) {
+  addPost(title: string, content: string, status: string, image: File, ) {
     const postData = new FormData();
     postData.append("title", title);
     postData.append("content", content);
     postData.append("image", image, title);
+    postData.append("status", status);
+    console.log('postData: ', postData);
     this.http
       .post<{ message: string; post: Post }>(
         BACKEND_URL,
@@ -76,13 +80,14 @@ export class PostsService {
       });
   }
 
-  updatePost(id: string, title: string, content: string, image: File | string) {
+  updatePost(id: string, title: string, content: string, status: string, image: File | string) {
     let postData: Post | FormData;
     if (typeof image === "object") {
       postData = new FormData();
       postData.append("id", id);
       postData.append("title", title);
       postData.append("content", content);
+      postData.append("status", status);
       postData.append("image", image, title);
     } else {
       postData = {
@@ -90,9 +95,11 @@ export class PostsService {
         title: title,
         content: content,
         imagePath: image,
+        status: status,
         creator: null
       };
     }
+    console.log('postData: ', postData);
     this.http
       .put(BACKEND_URL + id, postData)
       .subscribe(response => {

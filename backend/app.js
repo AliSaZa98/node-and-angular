@@ -5,14 +5,15 @@ const mongoose = require("mongoose");
 
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
+const commentRoutes = require("./routes/comment");
 
 const app = express();
 
 mongoose
   .connect(
     "mongodb+srv://SaZa:" +
-      process.env.MONGO_ATLAS_PW +
-      "@cluster0-leesz.mongodb.net/test"
+    process.env.MONGO_ATLAS_PW +
+    "@cluster0-leesz.mongodb.net/test"
   )
   .then(() => {
     console.log("Connected to database!");
@@ -40,5 +41,6 @@ app.use((req, res, next) => {
 
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/comment", commentRoutes);
 
 module.exports = app;

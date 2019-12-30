@@ -5,6 +5,8 @@ exports.createPost = (req, res, next) => {
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
+    postDate: new Date(),
+    status: req.body.status,
     imagePath: url + "/images/" + req.file.filename,
     creator: req.userData.userId
   });
@@ -36,6 +38,7 @@ exports.updatePost = (req, res, next) => {
     _id: req.body.id,
     title: req.body.title,
     content: req.body.content,
+    status: req.userData.status,
     imagePath: imagePath,
     creator: req.userData.userId
   });
