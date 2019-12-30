@@ -1,113 +1,85 @@
-// import { Injectable } from "@angular/core";
-// import { HttpClient } from "@angular/common/http";
-// import { Subject } from "rxjs";
-// import { map } from "rxjs/operators";
-// import { Router } from "@angular/router";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
+import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
 
-// import { environment } from "../../environments/environment";
-// import { Comment } from "./comment.model";
+import { environment } from "../../environments/environment";
+import { Comment } from "./comment.model";
 
-// const BACKEND_URL = environment.apiUrl + "/posts/";
+const BACKEND_URL = environment.apiUrl + "/comment/";
 
-// @Injectable({ providedIn: "root" })
-// export class PostsService {
-//   private posts: Post[] = [];
-//   private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
+@Injectable({ providedIn: "root" })
+export class CommentService {
+    private comments: Comment[] = [];
+    private commentsUpdated = new Subject<{ comments: Comment[]; commentCount: number }>();
 
-//   constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
-//   getPosts(postsPerPage: number, currentPage: number) {
-//     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
-//     this.http
-//       .get<{ message: string; posts: any; maxPosts: number }>(
-//         BACKEND_URL + queryParams
-//       )
-//       .pipe(
-//         map(postData => {
-//           return {
-//             posts: postData.posts.map(post => {
-//               return {
-//                 title: post.title,
-//                 content: post.content,
-//                 id: post._id,
-//                 status: post.status,
-//                 imagePath: post.imagePath,
-//                 creator: post.creator
-//               };
-//             }),
-//             maxPosts: postData.maxPosts
-//           };
-//         })
-//       )
-//       .subscribe(transformedPostData => {
-//         this.posts = transformedPostData.posts;
-//         this.postsUpdated.next({
-//           posts: [...this.posts],
-//           postCount: transformedPostData.maxPosts
-//         });
-//       });
-//   }
+    getComments(commentPerPage: number, currentPage: number) {
+        const queryParams = `?pagesize=${commentPerPage}&page=${currentPage}`;
+        this.http
+            .get<{ message: string; comments: any; maxComments: number }>(
+                BACKEND_URL + queryParams
+            )
+            .pipe(
+                map(commentData => {
+                    return {
+                        posts: commentData.comments.map(comment => {
+                            return {
+                                title: comment.title,
+                                desk: comment.desk,
+                                id: comment._id,
+                                author: comment.author,
+                                postId: comment.postId
+                            };
+                        }),
+                        maxComments: commentData.maxComments
+                    };
+                })
+            )
+            .subscribe(transformedCommentData => {
+                this.comments = transformedCommentData.posts;
+                this.commentsUpdated.next({
+                    comments: [...this.comments],
+                    commentCount: transformedCommentData.maxComments
+                });
+            });
+    }
 
-//   getPostUpdateListener() {
-//     return this.postsUpdated.asObservable();
-//   }
+    getCommentUpdateListener() {
+        return this.commentsUpdated.asObservable();
+    }
 
-//   getPost(id: string) {
-//     return this.http.get<{
-//       _id: string;
-//       title: string;
-//       content: string;
-//       imagePath: string;
-//       status: boolean;
-//       creator: string;
-//     }>(BACKEND_URL + id);
-//   }
+    getComment(id: string) {
+        return this.http.get<{
+            _id: string;
+            title: string;
+            desk: string;
+            author: string;
+            postId: string;
+        }>(BACKEND_URL + id);
+    }
 
-//   addPost(title: string, content: string, status: string, image: File, ) {
-//     const postData = new FormData();
-//     postData.append("title", title);
-//     postData.append("content", content);
-//     postData.append("image", image, title);
-//     postData.append("status", status);
-//     console.log('postData: ', postData);
-//     this.http
-//       .post<{ message: string; post: Post }>(
-//         BACKEND_URL,
-//         postData
-//       )
-//       .subscribe(responseData => {
-//         this.router.navigate(["/"]);
-//       });
-//   }
+    addComment(title: string, desk: string, author: string, postId: string, ) {
+        const commentData = new FormData();
+        commentData.append("title", title);
+        commentData.append("desk", desk);
+        commentData.append("author", author);
+        commentData.append("author", postId);
+        this.http
+            .post<{ message: string; comment: Comment }>(
+                BACKEND_URL,
+                commentData
+            )
+            .subscribe(responseData => {
+                this.router.navigate(["/"]);
+            });
+    }
 
-//   updatePost(id: string, title: string, content: string, status: string, image: File | string) {
-//     let postData: Post | FormData;
-//     if (typeof image === "object") {
-//       postData = new FormData();
-//       postData.append("id", id);
-//       postData.append("title", title);
-//       postData.append("content", content);
-//       postData.append("status", status);
-//       postData.append("image", image, title);
-//     } else {
-//       postData = {
-//         id: id,
-//         title: title,
-//         content: content,
-//         imagePath: image,
-//         status: status,
-//         creator: null
-//       };
-//     }
-//     console.log('postData: ', postData);
-//     this.http
-//       .put(BACKEND_URL + id, postData)
-//       .subscribe(response => {
-//         this.router.navigate(["/"]);
-//       });
-//   }
 
-//   deletePost(postId: string) {
-//     return this.http.delete(BACKEND_URL + postId);
-//   }
-// }
+
+    deleteComment(commentId: string) {
+        return this.http.delete(BACKEND_URL + commentId);
+    }
+}
