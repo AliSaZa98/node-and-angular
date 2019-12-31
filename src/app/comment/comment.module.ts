@@ -6,9 +6,10 @@ import { RouterModule } from "@angular/router";
 import { AddCommentComponent } from "./add-comment/add-comment.component";
 
 import { AngularMaterialModule } from "../angular-material.module";
+import { CommentListComponent } from "./comment-list/comment-list.component";
 
 @NgModule({
-  declarations: [AddCommentComponent],
+  declarations: [AddCommentComponent,CommentListComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

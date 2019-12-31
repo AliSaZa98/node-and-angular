@@ -6,12 +6,12 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-router.post("", checkAuth,  CommentController.createComment);
+router.post("",  CommentController.createComment);
 
 
 router.get("", CommentController.getComments);
 
-router.get("/:id", CommentController.getComment);
+router.get("/test/", CommentController.getComment);
 
 router.delete("/:id", checkAuth, CommentController.deleteComment);
 

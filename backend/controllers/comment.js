@@ -1,20 +1,19 @@
 const Comment = require("../models/comment");
 
 exports.createComment = (req, res, next) => {
-    const Comment = new Comment({
+    const comment = new Comment({
         title: req.body.title,
         desk: req.body.desk,
         author: req.body.desk,
         commentDate: new Date(),
         postId: req.body.postId
     });
-    console.log('Comment in comment js: ', Comment);
-    Comment
+    comment
         .save()
         .then(createdComment => {
             res.status(201).json({
                 message: "Comment added successfully",
-                Comment: {
+                comment: {
                     ...createdComment,
                     id: createdComment._id
                 }
@@ -56,10 +55,14 @@ exports.getComments = (req, res, next) => {
 };
 
 exports.getComment = (req, res, next) => {
-    Comment.findById(req.params.id)
+    console.log('req.params.postId: ', req.params.id);
+    console.log('i am in controleeer');
+    
+    Comment.find({ "postId": "5e09096a75a267526cb9a72f" })
         .then(Comment => {
             if (Comment) {
                 res.status(200).json(Comment);
+                console.log('Comment controller: ', Comment);
             } else {
                 res.status(404).json({ message: "Comment not found!" });
             }

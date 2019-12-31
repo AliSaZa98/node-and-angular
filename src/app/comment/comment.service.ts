@@ -52,13 +52,9 @@ export class CommentService {
     }
 
     getComment(id: string) {
-        return this.http.get<{
-            _id: string;
-            title: string;
-            desk: string;
-            author: string;
-            postId: string;
-        }>(BACKEND_URL + id);
+        let url = environment.apiUrl + "/comment" + "/test";
+        console.log('urlll:', BACKEND_URL, '/', id);
+        return this.http.get<any>(url);
     }
 
     addComment(title: string, desk: string, author: string, postId: string, ) {
@@ -68,7 +64,7 @@ export class CommentService {
             author: author,
             postId: postId
         };
-        console.log('commentData هد سثقر: ', commentData);
+        console.log('commend data in front service ', commentData);
         this.http
             .post<{ message: string; comment: Comment }>(
                 BACKEND_URL,
