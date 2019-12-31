@@ -1,6 +1,6 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+  <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+  <form [formGroup]="form" (submit)="onSavePost()" >
     <mat-form-field>
       <input matInput type="text" formControlName="author" placeholder="Post author">
       <mat-error *ngIf="form.get('author').invalid">Please enter a post author.</mat-error>

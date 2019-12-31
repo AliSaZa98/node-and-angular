@@ -8,4 +8,4 @@ const commentSchema = mongoose.Schema({
   postId: { type: mongoose.Schema.Types.ObjectId, ref: "post", required: true }
 });
 
-module.exports = mongoose.model("Post", commentSchema);
+module.exports = mongoose.model("Comment", commentSchema);

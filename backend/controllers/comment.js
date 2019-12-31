@@ -8,6 +8,7 @@ exports.createComment = (req, res, next) => {
         commentDate: new Date(),
         postId: req.body.postId
     });
+    console.log('Comment in comment js: ', Comment);
     Comment
         .save()
         .then(createdComment => {

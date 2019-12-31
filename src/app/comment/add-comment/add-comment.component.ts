@@ -53,13 +53,15 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+    console.log('ssss', this.form.value);
+
     this.isLoading = true;
-      this.commentService.addComment(
-        this.form.value.title,
-        this.form.value.desk,
-        this.form.value.author,
-        this.postId
-      );
+    this.commentService.addComment(
+      this.form.value.title,
+      this.form.value.desk,
+      this.form.value.author,
+      this.postId
+    );
     this.form.reset();
   }
 

@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import { Comment } from "./comment.model";
 
-const BACKEND_URL = environment.apiUrl + "/comment/";
+const BACKEND_URL = environment.apiUrl + "/comment";
 
 @Injectable({ providedIn: "root" })
 export class CommentService {
@@ -62,11 +62,13 @@ export class CommentService {
     }
 
     addComment(title: string, desk: string, author: string, postId: string, ) {
-        const commentData = new FormData();
-        commentData.append("title", title);
-        commentData.append("desk", desk);
-        commentData.append("author", author);
-        commentData.append("author", postId);
+        const commentData = {
+            title: title,
+            desk: desk,
+            author: author,
+            postId: postId
+        };
+        console.log('commentData هد سثقر: ', commentData);
         this.http
             .post<{ message: string; comment: Comment }>(
                 BACKEND_URL,
