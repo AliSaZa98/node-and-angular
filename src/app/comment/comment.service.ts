@@ -51,10 +51,20 @@ export class CommentService {
         return this.commentsUpdated.asObservable();
     }
 
+    // getComment(id: string) {
+    //     let url = environment.apiUrl + "/comment" + "/test";
+    //     console.log('urlll:', BACKEND_URL, '/', id);
+    //     return this.http.get(BACKEND_URL + '/' + id);
+    // }
     getComment(id: string) {
-        let url = environment.apiUrl + "/comment" + "/test";
-        console.log('urlll:', BACKEND_URL, '/', id);
-        return this.http.get<any>(url);
+        let url = environment.apiUrl + "/comment/"
+        return this.http.get<{
+            _id: string;
+            title: string;
+            desk: string;
+            author: string;
+            postId: string;
+        }>(url + id);
     }
 
     addComment(title: string, desk: string, author: string, postId: string, ) {

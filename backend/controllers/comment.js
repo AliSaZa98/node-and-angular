@@ -58,7 +58,7 @@ exports.getComment = (req, res, next) => {
     console.log('req.params.postId: ', req.params.id);
     console.log('i am in controleeer');
     
-    Comment.find({ "postId": "5e09096a75a267526cb9a72f" })
+    Comment.find({ "postId": req.params.id })
         .then(Comment => {
             if (Comment) {
                 res.status(200).json(Comment);

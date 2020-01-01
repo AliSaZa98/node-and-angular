@@ -13,7 +13,8 @@ import { AuthService } from "../../auth/auth.service";
   styleUrls: ["./comment-list.component.css"]
 })
 export class CommentListComponent implements OnInit, OnDestroy {
-  isLoading = false;
+  isLoading = true;
+  comments;
   private postId: string;
   private authStatusSub: Subscription;
   form: FormGroup;
@@ -40,7 +41,8 @@ export class CommentListComponent implements OnInit, OnDestroy {
     });
     this.commentService.getComment(this.postId).subscribe(res => {
       console.log('reeeeees', res);
-
+      this.isLoading = false;
+      this.comments = res;
     })
   }
 

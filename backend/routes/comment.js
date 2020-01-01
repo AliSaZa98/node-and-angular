@@ -11,7 +11,7 @@ router.post("",  CommentController.createComment);
 
 router.get("", CommentController.getComments);
 
-router.get("/test/", CommentController.getComment);
+router.get("/:id", CommentController.getComment);
 
 router.delete("/:id", checkAuth, CommentController.deleteComment);
 
