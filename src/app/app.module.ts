@@ -12,12 +12,13 @@ import { ErrorComponent } from "./error/error.component";
 import { AngularMaterialModule } from "./angular-material.module";
 import { PostsModule } from "./posts/posts.module";
 import { commentModule } from './comment/comment.module';
+import { UsersModule } from "./users/users.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,8 @@ import { commentModule } from './comment/comment.module';
     HttpClientModule,
     AngularMaterialModule,
     PostsModule,
-    commentModule
+    commentModule,
+    UsersModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -23,7 +23,7 @@ exports.createUser = (req, res, next) => {
         });
       });
   });
-}
+};
 
 exports.userLogin = (req, res, next) => {
   let fetchedUser;
@@ -59,4 +59,21 @@ exports.userLogin = (req, res, next) => {
         message: "Invalid authentication credentials!"
       });
     });
-}
+};
+
+exports.getUserList = (req, res, next) => {
+  User.find()
+    .then(User => {
+      if (User) {
+        res.status(200).json(User);
+        console.log('User controller: ', User);
+      } else {
+        res.status(404).json({ message: "User not found!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching User failed!"
+      });
+    });
+};

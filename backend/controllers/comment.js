@@ -28,36 +28,23 @@ exports.createComment = (req, res, next) => {
 
 
 exports.getComments = (req, res, next) => {
-    const pageSize = +req.query.pagesize;
-    const currentPage = +req.query.page;
-    const CommentQuery = Comment.find();
-    let fetchedComments;
-    if (pageSize && currentPage) {
-        Comment.skip(pageSize * (currentPage - 1)).limit(pageSize);
-    }
-    CommentQuery
-        .then(documents => {
-            fetchedComment = documents;
-            return Comment.count();
-        })
-        .then(count => {
-            res.status(200).json({
-                message: "Comments fetched successfully!",
-                Comments: fetchedComments,
-                maxComments: count
-            });
+    Comment.find()
+        .then(Comment => {
+            if (Comment) {
+                res.status(200).json(Comment);
+                console.log('Comment controller: ', Comment);
+            } else {
+                res.status(404).json({ message: "Comment not found!" });
+            }
         })
         .catch(error => {
             res.status(500).json({
-                message: "Fetching Comments failed!"
+                message: "Fetching Comment failed!"
             });
         });
 };
 
 exports.getComment = (req, res, next) => {
-    console.log('req.params.postId: ', req.params.id);
-    console.log('i am in controleeer');
-    
     Comment.find({ "postId": req.params.id })
         .then(Comment => {
             if (Comment) {

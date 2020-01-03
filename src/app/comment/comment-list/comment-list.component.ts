@@ -39,17 +39,21 @@ export class CommentListComponent implements OnInit, OnDestroy {
         this.postId = null;
       }
     });
-    this.commentService.getComment(this.postId).subscribe(res => {
-      console.log('reeeeees', res);
-      this.isLoading = false;
-      this.comments = res;
-    })
+
+    if (this.postId == null) {
+      this.commentService.getComments().subscribe(res => {
+        console.log('reeeeees not id', res);
+        this.isLoading = false;
+        this.comments = res;
+      })
+    } else {
+      this.commentService.getComment(this.postId).subscribe(res => {
+        console.log('reeeeees by id', res);
+        this.isLoading = false;
+        this.comments = res;
+      })
+    }
   }
-
-
-
-
-
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }

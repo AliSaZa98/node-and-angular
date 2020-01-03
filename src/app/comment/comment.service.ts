@@ -16,35 +16,14 @@ export class CommentService {
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    getComments(commentPerPage: number, currentPage: number) {
-        const queryParams = `?pagesize=${commentPerPage}&page=${currentPage}`;
-        this.http
-            .get<{ message: string; comments: any; maxComments: number }>(
-                BACKEND_URL + queryParams
-            )
-            .pipe(
-                map(commentData => {
-                    return {
-                        posts: commentData.comments.map(comment => {
-                            return {
-                                title: comment.title,
-                                desk: comment.desk,
-                                id: comment._id,
-                                author: comment.author,
-                                postId: comment.postId
-                            };
-                        }),
-                        maxComments: commentData.maxComments
-                    };
-                })
-            )
-            .subscribe(transformedCommentData => {
-                this.comments = transformedCommentData.posts;
-                this.commentsUpdated.next({
-                    comments: [...this.comments],
-                    commentCount: transformedCommentData.maxComments
-                });
-            });
+    getComments() {
+        return this.http.get<{
+            _id: string;
+            title: string;
+            desk: string;
+            author: string;
+            postId: string;
+        }>(BACKEND_URL);
     }
 
     getCommentUpdateListener() {
