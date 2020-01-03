@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 const commentRoutes = require("./routes/comment");
+const categoryRoutes = require("./routes/category");
 const contactUsRoute = require("./routes/contactUs");
 
 
@@ -45,6 +46,7 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/contactUs", contactUsRoute);
+app.use("/api/category", categoryRoutes);
 
 
 module.exports = app;
