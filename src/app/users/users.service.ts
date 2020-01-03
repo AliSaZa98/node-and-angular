@@ -19,9 +19,7 @@ export class UsersService {
 
  
     getUsers() {
-        return this.http.get<{
-           email:string
-        }>(BACKEND_URL + '/list')
+        return this.http.get<any>(BACKEND_URL + '/list')
     }
 
  
