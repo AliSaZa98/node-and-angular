@@ -1,3 +1,4 @@
+import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UsersListComponent } from './users/users-list.component';
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
 import { NgModule } from "@angular/core";
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "commentList/:postId", component: CommentListComponent, canActivate: [AuthGuard] },
   { path: "commentList", component: CommentListComponent, canActivate: [AuthGuard] },
   { path: "users", component: UsersListComponent, canActivate: [AuthGuard] },
+  { path: "contactUs", component: ContactUsComponent },
 ];
 
 @NgModule({

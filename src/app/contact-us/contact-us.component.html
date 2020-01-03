@@ -1,0 +1,20 @@
+<h3>Contact Form</h3>
+
+<div class="container">
+  <form [formGroup]="form">
+    <mat-form-field>
+      <input matInput type="text" formControlName="firstName" placeholder="firstName">
+      <mat-error *ngIf="form.get('firstName').invalid">Please enter firstName.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="lastName" placeholder="lastName">
+      <mat-error *ngIf="form.get('lastName').invalid">Please enter lastName.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput rows="4" formControlName="subject" placeholder="subject"></textarea>
+      <mat-error *ngIf="form.get('subject').invalid">Please enter a subject .</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="send()">send</button>
+  </form>
+
+</div>

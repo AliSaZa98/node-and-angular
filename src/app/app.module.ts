@@ -13,12 +13,15 @@ import { AngularMaterialModule } from "./angular-material.module";
 import { PostsModule } from "./posts/posts.module";
 import { commentModule } from './comment/comment.module';
 import { UsersModule } from "./users/users.module";
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ErrorComponent,
+    ContactUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { UsersModule } from "./users/users.module";
     AngularMaterialModule,
     PostsModule,
     commentModule,
-    UsersModule
+    UsersModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
