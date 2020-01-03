@@ -15,6 +15,7 @@ import { commentModule } from './comment/comment.module';
 import { UsersModule } from "./users/users.module";
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { categoryModule } from "./category/category.module";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     AngularMaterialModule,
     PostsModule,
     commentModule,
+    categoryModule,
     UsersModule,
     ReactiveFormsModule
   ],

@@ -1,3 +1,5 @@
+import { CategorytListComponent } from './category/category-list/category-list.component';
+import { AddCategoryComponent } from './category/add-category/add-category.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UsersListComponent } from './users/users-list.component';
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: "commentList", component: CommentListComponent, canActivate: [AuthGuard] },
   { path: "users", component: UsersListComponent, canActivate: [AuthGuard] },
   { path: "contactUs", component: ContactUsComponent },
+  { path: "addCategory", component: AddCategoryComponent },
+  { path: "categoryList", component: CategorytListComponent }
 ];
 
 @NgModule({
