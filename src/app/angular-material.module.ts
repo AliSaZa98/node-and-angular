@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-
+import {MatListModule} from '@angular/material/list';
 import {
   MatInputModule,
   MatCardModule,
@@ -10,6 +10,7 @@ import {
   MatPaginatorModule,
   MatDialogModule,
   MatCheckboxModule,
+  MatDividerModule,
 } from "@angular/material";
 
 @NgModule({
@@ -22,7 +23,9 @@ import {
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDividerModule,
+    MatListModule
   ]
 })
 export class AngularMaterialModule {}

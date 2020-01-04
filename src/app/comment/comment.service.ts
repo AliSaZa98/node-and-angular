@@ -60,7 +60,7 @@ export class CommentService {
                 commentData
             )
             .subscribe(responseData => {
-                this.router.navigate(["/"]);
+                this.router.navigate(["/commentList"]);
             });
     }
 

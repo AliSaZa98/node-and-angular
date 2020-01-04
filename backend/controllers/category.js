@@ -3,17 +3,18 @@ const Category = require("../models/category");
 exports.createCategory = (req, res, next) => {
     const category = new Category({
         title: req.body.title,
+        parentId: req.body.parentId,
         path: req.body.path,
-        paentId: req.body.postId
     });
+    console.log('test in api ', category);
     category
         .save()
-        .then(createdcategory => {
+        .then(createdCategory => {
             res.status(201).json({
                 message: "category added successfully",
                 category: {
-                    ...createdcategory,
-                    id: createdcategory._id
+                    ...createdCategory,
+                    id: createdCategory._id
                 }
             });
         })
@@ -44,7 +45,7 @@ exports.getCategorys = (req, res, next) => {
 
 
 exports.deleteCategory = (req, res, next) => {
-    Category.deleteOne({ _id: req.params.id})
+    Category.deleteOne({ _id: req.params.id })
         .then(result => {
             console.log(result);
             if (result.n > 0) {

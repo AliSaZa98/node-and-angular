@@ -1,11 +1,8 @@
+import { CategoryService } from './../category.service';
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
-
-import { CommentService } from "../category.service";
-import { Comment } from "../category.model";
-import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: "app-add-category",
@@ -18,50 +15,35 @@ export class AddCategoryComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    public commentService: CommentService,
-    public route: ActivatedRoute,
-    private authService: AuthService
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    // this.authStatusSub = this.authService
-    //   .getAuthStatusListener()
-    //   .subscribe(authStatus => {
-    //     this.isLoading = false;
-    //   });
-    // this.form = new FormGroup({
-    //   title: new FormControl(null, {
-    //     validators: [Validators.required, Validators.minLength(3)]
-    //   }),
-    //   desk: new FormControl(null, { validators: [Validators.required] }),
-    //   author: new FormControl(null, { validators: [Validators.required] }),
-    // });
-    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
-    //   if (paramMap.has("postId")) {
-    //     this.postId = paramMap.get("postId");
-    //     this.isLoading = true;
-    //   } else {
-    //     this.postId = null;
-    //   }
-    // });
+    this.createForm();
   }
 
-
+  createForm() {
+    this.form = new FormGroup({
+      title: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
+      parentId: new FormControl(null, { validators: [Validators.required] }),
+      Path: new FormControl(null, { validators: [Validators.required] }),
+    });
+  }
 
   onSavePost() {
-    // if (this.form.invalid) {
-    //   return;
-    // }
-    // console.log('ssss', this.form.value);
-
-    // this.isLoading = true;
-    // this.commentService.addComment(
-    //   this.form.value.title,
-    //   this.form.value.desk,
-    //   this.form.value.author,
-    //   this.postId
-    // );
-    // this.form.reset();
+    if (this.form.invalid) {
+      return;
+    }
+    console.log('ssss', this.form.value);
+    this.categoryService.addCategory(
+      this.form.value.title,
+      this.form.value.parentId,
+      this.form.value.Path,
+    );
+    this.form.reset();
   }
 
 

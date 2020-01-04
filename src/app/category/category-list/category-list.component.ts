@@ -3,8 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
 
-import { CommentService } from "../category.service";
-import { Comment } from "../category.model";
+import { CategoryService } from "../category.service";
 import { AuthService } from "../../auth/auth.service";
 
 @Component({
@@ -12,7 +11,7 @@ import { AuthService } from "../../auth/auth.service";
   templateUrl: "./category-list.component.html",
   styleUrls: ["./category-list.component.css"]
 })
-export class CategorytListComponent implements OnInit, OnDestroy {
+export class CategorytListComponent implements OnInit {
   isLoading = true;
   comments;
   private postId: string;
@@ -20,41 +19,19 @@ export class CategorytListComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   constructor(
-    public commentService: CommentService,
+    public categoryService: CategoryService,
     public route: ActivatedRoute,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    // this.authStatusSub = this.authService
-    //   .getAuthStatusListener()
-    //   .subscribe(authStatus => {
-    //     this.isLoading = false;
-    //   });
-    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
-    //   if (paramMap.has("postId")) {
-    //     this.postId = paramMap.get("postId");
-    //     this.isLoading = true;
-    //   } else {
-    //     this.postId = null;
-    //   }
-    // });
+    this.getCategory();
+  }
 
-    // if (this.postId == null) {
-    //   this.commentService.getComments().subscribe(res => {
-    //     console.log('reeeeees not id', res);
-    //     this.isLoading = false;
-    //     this.comments = res;
-    //   })
-    // } else {
-    //   this.commentService.getComment(this.postId).subscribe(res => {
-    //     console.log('reeeeees by id', res);
-    //     this.isLoading = false;
-    //     this.comments = res;
-    //   })
-    // }
+  getCategory() {
+    this.categoryService.getCategories().subscribe(res => {
+      console.log('afaf', res);
+    })
   }
-  ngOnDestroy() {
-    // this.authStatusSub.unsubscribe();
-  }
+
 }

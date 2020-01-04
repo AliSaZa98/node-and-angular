@@ -1,21 +1,14 @@
-<!-- <mat-card> -->
-  <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
-  <!-- <form [formGroup]="form" (submit)="onSavePost()" >
+<mat-card>
+  <form [formGroup]="form" (submit)="onSavePost()">
     <mat-form-field>
-      <input matInput type="text" formControlName="author" placeholder="Comment author">
-      <mat-error *ngIf="form.get('author').invalid">Please enter a Comment author.</mat-error>
+      <input matInput type="text" formControlName="title" placeholder="Category title" >
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" formControlName="title" placeholder="Comment Title">
-      <mat-error *ngIf="form.get('title').invalid">Please enter a Comment title.</mat-error>
+      <input matInput type="number" formControlName="parentId" placeholder="Category Parent Id">
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput rows="4" formControlName="desk" placeholder="Comment desk"></textarea>
-      <mat-error *ngIf="form.get('desk').invalid">Please enter a Comment title.</mat-error>
+      <textarea matInput rows="4" formControlName="Path" placeholder="Category Path"></textarea>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit">Save Comment</button>
+    <button mat-raised-button color="accent" type="submit">Save Category</button>
   </form>
-</mat-card> -->
-<h3>
-  addddd
-</h3>
+</mat-card>

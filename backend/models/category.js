@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const categorySchema = mongoose.Schema({
   title: { type: String, required: true },
-  parenId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  parentId: { type: String, required: true },
   path: { type: String, required: true },
 });
 

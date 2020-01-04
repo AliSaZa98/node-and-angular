@@ -5,62 +5,36 @@ import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 import { environment } from "../../environments/environment";
-import { Comment } from "./comment.model";
+import { Category } from "./category.model";
 
-const BACKEND_URL = environment.apiUrl + "/comment";
+const BACKEND_URL = environment.apiUrl + "/category";
 
 @Injectable({ providedIn: "root" })
-export class CommentService {
-    private comments: Comment[] = [];
-    private commentsUpdated = new Subject<{ comments: Comment[]; commentCount: number }>();
+export class CategoryService {
+
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    getComments() {
-        return this.http.get<{
-            _id: string;
-            title: string;
-            desk: string;
-            author: string;
-            postId: string;
-        }>(BACKEND_URL);
+    getCategories() {
+        return this.http.get<any>(BACKEND_URL);
     }
 
-    getCommentUpdateListener() {
-        return this.commentsUpdated.asObservable();
-    }
 
-    // getComment(id: string) {
-    //     let url = environment.apiUrl + "/comment" + "/test";
-    //     console.log('urlll:', BACKEND_URL, '/', id);
-    //     return this.http.get(BACKEND_URL + '/' + id);
-    // }
-    getComment(id: string) {
-        let url = environment.apiUrl + "/comment/"
-        return this.http.get<{
-            _id: string;
-            title: string;
-            desk: string;
-            author: string;
-            postId: string;
-        }>(url + id);
-    }
 
-    addComment(title: string, desk: string, author: string, postId: string, ) {
-        const commentData = {
+    addCategory(title: string, parentId: string, path: string) {
+        const categoryData = {
             title: title,
-            desk: desk,
-            author: author,
-            postId: postId
+            parentId: parentId,
+            path: path,
         };
-        console.log('commend data in front service ', commentData);
+        console.log('commend data in front service ', categoryData);
         this.http
-            .post<{ message: string; comment: Comment }>(
+            .post<{ message: string; categoryData: Category }>(
                 BACKEND_URL,
-                commentData
+                categoryData
             )
             .subscribe(responseData => {
-                this.router.navigate(["/"]);
+                this.router.navigate(["/categoryList"]);
             });
     }
 
