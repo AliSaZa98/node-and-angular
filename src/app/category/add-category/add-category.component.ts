@@ -34,6 +34,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
   onSavePost() {
+    this.isLoading = true;
     if (this.form.invalid) {
       return;
     }
@@ -44,6 +45,7 @@ export class AddCategoryComponent implements OnInit {
       this.form.value.Path,
     );
     this.form.reset();
+    
   }
 
 

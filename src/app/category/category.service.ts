@@ -38,9 +38,19 @@ export class CategoryService {
             });
     }
 
+    editeCategory(data, id: string) {
+        const categoryData = {
+            id: id,
+            title: data.title,
+            parentId: data.parentId,
+            path: data.Path,
+        };
+        console.log('categoryData: ', categoryData);
+        return this.http.put(BACKEND_URL + '/' + id, categoryData);
+    }
 
-
-    deleteComment(commentId: string) {
-        return this.http.delete(BACKEND_URL + commentId);
+    deleteCategory(categoryId: string) {
+        console.log('categoryId: ', categoryId);
+        return this.http.delete(BACKEND_URL + '/' + categoryId);
     }
 }

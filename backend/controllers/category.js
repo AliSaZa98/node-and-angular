@@ -6,7 +6,6 @@ exports.createCategory = (req, res, next) => {
         parentId: req.body.parentId,
         path: req.body.path,
     });
-    console.log('test in api ', category);
     category
         .save()
         .then(createdCategory => {
@@ -30,7 +29,7 @@ exports.getCategorys = (req, res, next) => {
         .then(Category => {
             if (Category) {
                 res.status(200).json(Category);
-                console.log('Category controller: ', Category);
+                
             } else {
                 res.status(404).json({ message: "Category not found!" });
             }
@@ -42,12 +41,37 @@ exports.getCategorys = (req, res, next) => {
         });
 };
 
-
+exports.editeCategory = (req, res, next) => {
+    console.log('req.body: ', req.body);
+    const category = new Category({
+        _id: req.body.id,
+        title: req.body.title,
+        parentId: req.body.parentId,
+        path: req.body.path,
+    });
+    console.log('category: ', category);
+    
+    
+    Category.updateOne({ _id: req.params.id }, category)
+      .then(result => {
+        if (result.n > 0) {
+          res.status(200).json({ message: "Update successful!" });
+        } else {
+          res.status(401).json({ message: "Not authorized!" });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Couldn't udpate!"
+        });
+      });
+  };
+  
 
 exports.deleteCategory = (req, res, next) => {
     Category.deleteOne({ _id: req.params.id })
         .then(result => {
-            console.log(result);
+            
             if (result.n > 0) {
                 res.status(200).json({ message: "Deletion successful!" });
             } else {

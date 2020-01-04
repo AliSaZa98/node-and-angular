@@ -1,6 +1,5 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-card>
-  <form [formGroup]="form" (submit)="onSavePost()">
+  <form [formGroup]="form">
     <mat-form-field>
       <input matInput type="text" formControlName="title" placeholder="Category title">
     </mat-form-field>
@@ -10,6 +9,8 @@
     <mat-form-field>
       <textarea matInput rows="4" formControlName="Path" placeholder="Category Path"></textarea>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit">Save Category</button>
+    <button mat-raised-button color="primary" (click)="saveCategory()">edite</button>
+    <button mat-raised-button color="warn" (click)="closeDialog()">close</button>
+
   </form>
 </mat-card>

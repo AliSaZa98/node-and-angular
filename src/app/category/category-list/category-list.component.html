@@ -1,7 +1,18 @@
-<mat-list>
-    <mat-list-item>Item 1</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 2</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 3</mat-list-item>
-</mat-list>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="categories.length > 0 && !isLoading">
+    <mat-list *ngFor="let category of categories">
+        <mat-list-item><span style="color: red;">
+                title:
+            </span>{{category.title}}</mat-list-item>
+        <p> <span style="color: red;">
+                path:
+            </span>{{category.path}}</p>
+        <p> <span style="color: red;">
+                parentId:
+            </span>{{category.parentId}}</p>
+            <button mat-button color="warn" (click)="onDelete(category._id)">DELETE</button>
+            <a mat-button color="primary" (click)="editeDialog(category)">EDIT</a>
+        <mat-divider></mat-divider>
+    </mat-list>
+</div>
+<p class="info-text mat-body-1" *ngIf="categories.length <= 0 && !isLoading">No categories added yet!</p>
